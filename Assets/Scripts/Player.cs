@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerCharacter : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private bool isDragging;
     private Vector3 offset;
@@ -9,7 +9,17 @@ public class PlayerCharacter : MonoBehaviour
     private Vector3 extents;
     private Vector3 velocity = Vector3.zero;
     public float smoothTime = 0.15f;
+    public int health = 100;
 
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int k)
+    {
+        health = k;
+    }
 
     void Awake()
     {

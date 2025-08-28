@@ -1,16 +1,29 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Loader : MonoBehaviour
+public static class Loader
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public enum Scene
     {
-        
+        HomeScreen,
+        Game,
+        Loading
     }
 
-    // Update is called once per frame
-    void Update()
+    private static Scene targetScene;
+
+    public static void Load(Scene targetScene)
     {
-        
+        Loader.targetScene = targetScene;
+
+        SceneManager.LoadScene(Scene.Loading.ToString());
     }
+
+    public static void LoaderCallback()
+    {
+        SceneManager.LoadScene(targetScene.ToString());
+    }
+
 }
