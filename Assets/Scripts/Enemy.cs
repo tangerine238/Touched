@@ -4,7 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] public Transform target;
     [SerializeField] private GameManager gameManager;
-    public float speed = 0.5f;
+    public float speed = 10f;
     public bool canBeClicked = true;
 
     public float stopDistance = 0.1f;
@@ -12,6 +12,24 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D col;
     private bool isHovered = false;
+    public int health = 1;
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int x)
+    {
+        health = x;
+    }
+
+    public void Init(Transform target, GameManager gm, float? speedOverride = null)
+    {
+        this.target = target;
+        this.gameManager = gm;
+        if (speedOverride.HasValue) speed = speedOverride.Value;
+    }
 
     void Awake()
     {
@@ -47,7 +65,13 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        gameManager.endGame();
+        if (other.CompareTag("Player") || other.GetComponentInParent<Player>() != null)
+        {
+            if (gameManager)
+            {
+                gameManager.endGame();
+            }
+        }
     }
 
 }
